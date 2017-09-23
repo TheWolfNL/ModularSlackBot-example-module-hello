@@ -1,0 +1,5 @@
+package: github.com/thewolfnl/ModularSlackBot-example-module-hello
+import:
+- package: github.com/thewolfnl/ModularSlackBot
+  subpackages:
+  - bot

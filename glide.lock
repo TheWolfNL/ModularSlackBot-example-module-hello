@@ -1,0 +1,14 @@
+hash: 0c450f86ac48007ab1a0c4e099b1a0f8cef8b2d9741db2efbbbadab8d00bb460
+updated: 2017-09-23T12:19:08.890995033+02:00
+imports:
+- name: github.com/nlopes/slack
+  version: c86337c0ef2486a15edd804355d9c73d2f2caed1
+- name: github.com/thewolfnl/ModularSlackBot
+  version: 3bd8e5d13786711b287e4b7f5c93ff6276aa436c
+  subpackages:
+  - bot
+- name: golang.org/x/net
+  version: 8351a756f30f1297fe94bbf4b767ec589c6ea6d0
+  subpackages:
+  - websocket
+testImports: []

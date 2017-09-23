@@ -1,5 +1,5 @@
 # ModularSlackBot-example-module-hello
-Fork this repo to get started making your own module
+Fork this repo to get started making your own [ModularSlackBot](https://thewolfnl.github.io/ModularSlackBot/) module
 
 # Where to start
 1. Install dependencies using [Glide](https://github.com/Masterminds/glide#install) by running `glide install`

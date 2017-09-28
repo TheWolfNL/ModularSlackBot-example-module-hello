@@ -4,10 +4,18 @@ import (
 	"testing"
 
 	"github.com/thewolfnl/ModularSlackBot"
+	"github.com/thewolfnl/ModularSlackBot/testLib"
 )
 
-func TestNew(t *testing.T) {
+func setup() (*botTestLib.MockBot, *bot.Module) {
 	module := New()
+	mock := botTestLib.NewMockBot()
+	mock.AddModule(module)
+	return mock, module
+}
+
+func TestNew(t *testing.T) {
+	_, module := setup()
 
 	if module.Name() != "TestModule" {
 		t.Error("Expected module name TestModule, got ", module.Name())
@@ -19,18 +27,30 @@ func TestNew(t *testing.T) {
 }
 
 func ExampleHello() {
-	module := New()
-	module.HandleInput(bot.CreateMessage("Hello"))
+	mock, module := setup()
+	message := mock.CreateMessage("Hello")
+
+	module.HandleInput(message)
 	// Output: Sending to #C2147483705
-	// Response: Hey there, to you too
+	// Response: Hey John, how you doing?
+	// Message not sent to slack because slack api is not configured
+}
+
+func ExampleHelloIM() {
+	mock, module := setup()
+	message := mock.MockMessage(mock.CreateMessageEvent("Hello"), botTestLib.ReturnFalse, botTestLib.ReturnTrue, botTestLib.ReturnFalse)
+
+	module.HandleInput(message)
+	// Output: Sending to #C2147483705
+	// Response: Hey buddy, long time no see
 	// Message not sent to slack because slack api is not configured
 }
 
 func ExampleTest() {
-	module := New()
-	module.HandleInput(bot.CreateMessage("test"))
+	mock, module := setup()
+	module.HandleInput(mock.CreateMessage("test"))
 	// Output: MessageJSON:
-	// {"channel":"C2147483705","user":"U2147483697","text":"test","pinned_to":null}
+	// {"type":"message","channel":"C2147483705","user":"U2147483697","text":"test","ts":"1355517523.000005","pinned_to":null}
 	//
 	// Sending to #C2147483705
 	// Response: Read you loud and clear..

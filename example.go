@@ -6,27 +6,30 @@ import (
 	"github.com/thewolfnl/ModularSlackBot"
 )
 
-type TestModule struct {
-	*bot.Module
-}
-
 // New function to return a new instance of this bot
-func New() *TestModule {
-	module := TestModule{bot.NewModule("TestModule", "0.0.1")}
+func New() *bot.Module {
+	module := bot.NewModule("TestModule", "0.0.2")
 
 	// Define triggers
-	module.AddTrigger("(?i)(hello|hi|hey).*", module.hello)
+	module.AddTrigger("(?i)(hello|hi|hey).*", hello)
 
-	module.AddTrigger("test", func(message *bot.Message) error {
+	module.AddTrigger("test", func(message *bot.Message) {
 		fmt.Printf("\nMessageJSON:\n%s\n", message.ToJson())
-		module.Respond("Read you loud and clear..")
-		return nil
+		message.Respond("Read you loud and clear..")
 	})
 
-	return &module
+	return module
 }
 
-func (module *TestModule) hello(message *bot.Message) error {
-	module.Respond("Hey there, to you too")
-	return nil
+func hello(message *bot.Message) {
+	if message.IsIM() {
+		message.Respond("Hey buddy, long time no see")
+	} else {
+		user := message.GetUser()
+		name := "John"
+		if user != nil {
+			name = user.Name
+		}
+		message.Respond(fmt.Sprintf("Hey %s, how you doing?", name))
+	}
 }

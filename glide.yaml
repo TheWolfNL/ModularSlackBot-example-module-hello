@@ -3,4 +3,4 @@ import:
 - package: github.com/nlopes/slack
   version: ^0.1.0
 - package: github.com/thewolfnl/ModularSlackBot
-  version: ^0.0.1
+  version: ~0.2.0

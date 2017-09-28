@@ -21,8 +21,8 @@ func TestNew(t *testing.T) {
 		t.Error("Expected module name TestModule, got ", module.Name())
 	}
 
-	if module.Version() != "0.0.1" {
-		t.Error("Expected module version 0.0.1, got ", module.Version())
+	if module.Version() != "0.0.2" {
+		t.Error("Expected module version 0.0.2, got ", module.Version())
 	}
 }
 
